@@ -887,8 +887,19 @@ impl Default for SolverConfig {
     }
 }
 
+/**
+Alias of [`EdgeValueInputs`] specifically for resistances. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
 pub type Resistances<'a> = EdgeValueInputs<'a, RESISTANCE>;
+
+/**
+Alias of [`EdgeValueInputs`] specifically for current sources. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
 pub type CurrentSources<'a> = EdgeValueInputs<'a, CURRENT>;
+
+/**
+Alias of [`EdgeValueInputs`] specifically for voltage sources. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
 pub type VoltageSources<'a> = EdgeValueInputs<'a, VOLTAGE>;
 
 /// Marker trait which restricts the constant value for [`EdgeValueInputs`] to 0 (= [`Resistances`]),

@@ -1,17 +1,17 @@
 network_analysis
 ================
 
-[`new`]: https://docs.rs/network_analysis/0.1.0/network_analysis/trait.NetworkAnalysis.html#method.new
-[`solve`]: https://docs.rs/network_analysis/0.1.0/network_analysis/trait.NetworkAnalysis.html#method.solve
-[`Network`]: https://docs.rs/network_analysis/0.1.0/network_analysis/struct.Network.html
-[`MeshAnalysis`]: https://docs.rs/network_analysis/0.1.0/network_analysis/struct.MeshAnalysis.html
-[`NodalAnalysis`]: https://docs.rs/network_analysis/0.1.0/network_analysis/struct.NodalAnalysis.html
-[`CurrentSources`]: https://docs.rs/network_analysis/0.1.0/network_analysis/type.CurrentSources.html
-[`VoltageSources`]: https://docs.rs/network_analysis/0.1.0/network_analysis/type.VoltageSources.html
-[`Resistances`]: https://docs.rs/network_analysis/0.1.0/network_analysis/type.Resistances.html
-[`JacobianData`]: https://docs.rs/network_analysis/0.1.0/network_analysis/struct.JacobianData.html
-[`Solution`]: https://docs.rs/network_analysis/0.1.0/network_analysis/struct.Solution.html
-[`Type`]: https://docs.rs/network_analysis/0.1.0/network_analysis/enum.Type.html
+[`Network`]: https://docs.rs/network_analysis/0.1.1/network_analysis/network/struct.Network.html
+[`new`]: https://docs.rs/network_analysis/0.1.1/network_analysis/network/trait.NetworkAnalysis.html#method.new
+[`solve`]: https://docs.rs/network_analysis/0.1.1/network_analysis/network/trait.NetworkAnalysis.html#method.solve
+[`MeshAnalysis`]: https://docs.rs/network_analysis/0.1.1/network_analysis/mesh_analysis/struct.MeshAnalysis.html
+[`NodalAnalysis`]: https://docs.rs/network_analysis/0.1.1/network_analysis/nodal_analysis/struct.NodalAnalysis.html
+[`CurrentSources`]: https://docs.rs/network_analysis/0.1.1/network_analysis/shared/type.CurrentSources.html
+[`VoltageSources`]: https://docs.rs/network_analysis/0.1.1/network_analysis/shared/type.VoltageSources.html
+[`Resistances`]: https://docs.rs/network_analysis/0.1.1/network_analysis/shared/type.Resistances.html
+[`JacobianData`]: https://docs.rs/network_analysis/0.1.1/network_analysis/shared/struct.JacobianData.html
+[`Solution`]: https://docs.rs/network_analysis/0.1.1/network_analysis/shared/struct.Solution.html
+[`Type`]: https://docs.rs/network_analysis/0.1.1/network_analysis/network/enum.Type.html
 
 # Introduction
 

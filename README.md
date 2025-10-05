@@ -26,7 +26,7 @@ the rest are resistances.
 
 ![A simple electrical network](doc/example.svg "A simple electrical network")
 
-To analyze this network using `network_analysis`, it is first described and checked for errors (such as e.g. short circuits). Afterwards, the voltage sources and resistances are quantified and the network is solved both via mesh and nodal analysis. This returns a solution object which provides multiple methods to access e.g. the edge currents,
+To analyze this network using the network_analysis crate, it is first described and checked for errors (such as e.g. short circuits). Afterwards, the voltage sources and resistances are quantified and the network is solved both via mesh and nodal analysis. This returns a solution object which provides multiple methods to access e.g. the edge currents,
 voltages and resistances.
 
 ## Linear network

@@ -19,6 +19,8 @@ This crate allows calculating the electrical currents and voltages of planar ele
 following the same laws, such as magnetic or thermal circuits) via [network analysis](<https://en.wikipedia.org/wiki/Network_analysis_(electrical_circuits)>), specifically 
 [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) and [(modified) nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>).
 
+The full documentation is available at <https://docs.rs/network_analysis/0.1.1>.
+
 As an introductory example, let's consider the following network with seven elements ("edges"). Two of those elements are voltage sources,
 the rest are resistances.
 

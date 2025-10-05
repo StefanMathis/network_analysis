@@ -231,5 +231,5 @@ is used.
 # Literature
 
 1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
-2) Mathis, S.: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
+2) Mathis, Stefan: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
 PhD thesis, TU Kaiserslautern, Shaker-Verlag, 2019

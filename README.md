@@ -1,18 +1,18 @@
 network_analysis
 ================
 
-[`Network`]: https://docs.rs/network_analysis/0.1.2/network_analysis/network/struct.Network.html
-[`new`]: https://docs.rs/network_analysis/0.1.2/network_analysis/network/trait.NetworkAnalysis.html#tymethod.new
-[`solve`]: https://docs.rs/network_analysis/0.1.2/network_analysis/network/trait.NetworkAnalysis.html#tymethod.solve
-[`MeshAnalysis`]: https://docs.rs/network_analysis/0.1.2/network_analysis/mesh_analysis/struct.MeshAnalysis.html
-[`NodalAnalysis`]: https://docs.rs/network_analysis/0.1.2/network_analysis/nodal_analysis/struct.NodalAnalysis.html
-[`CurrentSources`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/type.CurrentSources.html
-[`VoltageSources`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/type.VoltageSources.html
-[`Resistances`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/type.Resistances.html
-[`JacobianData`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.JacobianData.html
-[`Solution`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.Solution.html
-[`SolverConfig`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.SolverConfig.html
-[`Type`]: https://docs.rs/network_analysis/0.1.2/network_analysis/network/enum.Type.html
+[`Network`]: https://docs.rs/network_analysis/0.1.3/network_analysis/network/struct.Network.html
+[`new`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
+[`solve`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
+[`MeshAnalysis`]: https://docs.rs/network_analysis/0.1.3/network_analysis/mesh_analysis/struct.MeshAnalysis.html
+[`NodalAnalysis`]: https://docs.rs/network_analysis/0.1.3/network_analysis/nodal_analysis/struct.NodalAnalysis.html
+[`CurrentSources`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/type.CurrentSources.html
+[`VoltageSources`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/type.VoltageSources.html
+[`Resistances`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/type.Resistances.html
+[`JacobianData`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/struct.JacobianData.html
+[`Solution`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/struct.Solution.html
+[`SolverConfig`]: https://docs.rs/network_analysis/0.1.3/network_analysis/shared/struct.SolverConfig.html
+[`Type`]: https://docs.rs/network_analysis/0.1.3/network_analysis/network/enum.Type.html
 
 # Introduction
 
@@ -20,7 +20,7 @@ This crate allows calculating the electrical currents and voltages of planar ele
 following the same laws, such as magnetic or thermal circuits) via [network analysis](<https://en.wikipedia.org/wiki/Network_analysis_(electrical_circuits)>), specifically 
 [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) and [(modified) nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>).
 
-The full documentation is available at <https://docs.rs/network_analysis/0.1.2>.
+The full documentation is available at <https://docs.rs/network_analysis/0.1.3>.
 
 As an introductory example, let's consider the following network with seven elements ("edges"). Two of those elements are voltage sources,
 the rest are resistances.

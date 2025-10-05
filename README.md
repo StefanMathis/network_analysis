@@ -11,6 +11,7 @@ network_analysis
 [`Resistances`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/type.Resistances.html
 [`JacobianData`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.JacobianData.html
 [`Solution`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.Solution.html
+[`SolverConfig`]: https://docs.rs/network_analysis/0.1.2/network_analysis/shared/struct.SolverConfig.html
 [`Type`]: https://docs.rs/network_analysis/0.1.2/network_analysis/network/enum.Type.html
 
 # Introduction

@@ -1,0 +1,25 @@
+[package]
+name = "network_analysis"
+version = "0.1.0"
+edition = "2024"
+description = "Solver for nonlinear networks based on the mesh and nodal analysis methods"
+readme = "README.md"
+license  = "MIT OR Apache-2.0"
+repository = "https://github.com/StefanMathis/network_analysis.git"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+petgraph = { version = "0.8.3", features = ["rayon"]}
+nalgebra = {version = "0.32"}
+rayon = "1.5"
+cart_lin = { version = "0.2.1"}
+approx = "0.5.1"
+serde = { version = "1", features = ["derive", "rc"], optional = true }
+
+[features]
+default = []
+serde = ["dep:serde", "nalgebra/serde-serialize", "petgraph/serde-1"]
+
+[dev-dependencies]
+network_analysis = { path = ".", features = ["serde"] } # Solution from https://stackoverflow.com/questions/68618789/is-it-possible-to-enable-a-rust-feature-only-in-test to enable feature during integration test

@@ -95,7 +95,7 @@ impl NetworkAnalysis for MeshAnalysis {
         jacobian: Option<&mut (dyn for<'b> FnMut(JacobianData<'b>) + 'a)>,
         config: &SolverConfig,
     ) -> Result<Solution<'a>, SolveError> {
-        return NetworkAnalysisPriv::solve::<MESH_ANALYSIS>(
+        return NetworkAnalysisPriv::solve(
             self,
             resistances,
             current_exc,
@@ -189,6 +189,10 @@ impl NetworkAnalysisPriv for MeshAnalysis {
             self.edge_types.as_slice(),
             &mut self.buf,
         );
+    }
+
+    fn combine_resistance_and_coupling(edge: f64, coupling: f64) -> f64 {
+        coupling * edge
     }
 }
 

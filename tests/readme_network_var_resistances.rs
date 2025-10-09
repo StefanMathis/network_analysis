@@ -26,7 +26,7 @@ fn test_resistances_single_current_source() {
             .solve(
                 Resistances::Function(&calc_resistances),
                 CurrentSources::Slice(&[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                VoltageSources::None,
+                VoltageSources::None(PhantomData),
                 None,
                 None,
                 None,
@@ -94,7 +94,7 @@ fn test_resistances_multiple_current_sources() {
             .solve(
                 Resistances::Function(&calc_resistances),
                 CurrentSources::Slice(&[1.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0]),
-                VoltageSources::None,
+                VoltageSources::None(PhantomData),
                 None,
                 None,
                 None,
@@ -133,7 +133,7 @@ fn test_resistances_single_voltage_source() {
         let solution = network_analysis
             .solve(
                 Resistances::Function(&calc_resistances),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Slice(&[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
                 None,
                 None,
@@ -173,7 +173,7 @@ fn test_resistances_multiple_voltage_sources() {
         let solution = network_analysis
             .solve(
                 Resistances::Function(&calc_resistances),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Slice(&[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]),
                 None,
                 None,
@@ -206,7 +206,7 @@ fn test_resistances_multiple_voltage_sources() {
         let solution = network_analysis
             .solve(
                 Resistances::Function(&calc_resistances),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Slice(&[1.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0]),
                 None,
                 None,
@@ -239,7 +239,7 @@ fn test_resistances_multiple_voltage_sources() {
         let solution = network_analysis
             .solve(
                 Resistances::Function(&calc_resistances),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Slice(&[-2.0, 0.0, 0.0, 0.0, 0.0, 4.0, 0.0]),
                 None,
                 None,
@@ -343,7 +343,7 @@ fn test_pow2() {
     let sol = mesh_analysis
         .solve(
             Resistances::Function(&mut calc_resistances_pow2),
-            CurrentSources::None,
+            CurrentSources::None(PhantomData),
             VoltageSources::Slice(&[2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]),
             None,
             None,

@@ -26,7 +26,7 @@ fn test_constant_resistances_single_constant_voltage_source() {
         let solution = network_analysis
             .solve(
                 Resistances::Slice(&[0.0, 1.0, 1.0]),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Slice(&[1.0, 0.0, 0.0]),
                 None,
                 None,
@@ -65,7 +65,7 @@ fn test_constant_resistances_single_constant_current_source() {
             .solve(
                 EdgeValueInputs::Slice(&[0.0, 1.0, 1.0]),
                 EdgeValueInputs::Slice(&[1.0, 0.0, 0.0]),
-                EdgeValueInputs::None,
+                EdgeValueInputs::None(PhantomData),
                 None,
                 None,
                 None,
@@ -103,7 +103,7 @@ fn test_constant_resistances_two_constant_current_sources() {
             .solve(
                 EdgeValueInputs::Slice(&[0.0, 1.0, 0.0]),
                 EdgeValueInputs::Slice(&[1.0, 0.0, 1.0]),
-                EdgeValueInputs::None,
+                EdgeValueInputs::None(PhantomData),
                 None,
                 None,
                 None,

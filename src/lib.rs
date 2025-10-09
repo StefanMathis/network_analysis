@@ -13,3 +13,4 @@ pub use mesh_analysis::*;
 pub use network::*;
 pub use nodal_analysis::*;
 pub use shared::*;
+pub use std::marker::PhantomData;

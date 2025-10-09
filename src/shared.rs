@@ -16,13 +16,7 @@ use na::{DMatrix, DVector};
 use rayon::prelude::*;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
-
-// Constants
-const RESISTANCE: u8 = 0;
-const CURRENT: u8 = 1;
-const VOLTAGE: u8 = 2;
-pub(crate) const MESH_ANALYSIS: u8 = 0;
-pub(crate) const NODAL_ANALYSIS: u8 = 1;
+use std::marker::PhantomData;
 
 /**
 An error returned from a failed call to [`solve`](`NetworkAnalysis::solve`).
@@ -546,7 +540,12 @@ pub(crate) trait NetworkAnalysisPriv: NetworkAnalysis {
         &'a mut Buffer,
     );
 
-    fn solve<'a, const ANALYSIS_TYPE: u8>(
+    /**
+    Combines resistance and edge coupling to either resistance or conductance (depending on the analysis type).
+     */
+    fn combine_resistance_and_coupling(edge: f64, coupling: f64) -> f64;
+
+    fn solve<'a>(
         &'a mut self,
         resistances: Resistances,
         current_src: CurrentSources,
@@ -621,7 +620,7 @@ pub(crate) trait NetworkAnalysisPriv: NetworkAnalysis {
                 });
             }
 
-            coefficient_matrix.calculate::<ANALYSIS_TYPE>(buf.edge_resistances.as_slice());
+            coefficient_matrix.calculate::<Self>(buf.edge_resistances.as_slice());
 
             network_excitation.calculate(
                 buf.edge_currents.as_slice(),
@@ -688,7 +687,7 @@ pub(crate) trait NetworkAnalysisPriv: NetworkAnalysis {
                         edge_voltages: buf.edge_voltages.as_slice(),
                         edge_currents: buf.edge_currents.as_slice(),
                     });
-                    coefficient_matrix.calculate::<ANALYSIS_TYPE>(buf.edge_resistances.as_slice())
+                    coefficient_matrix.calculate::<Self>(buf.edge_resistances.as_slice())
                 } else {
                     coefficient_matrix.coefficient_matrix()
                 };
@@ -888,51 +887,77 @@ impl Default for SolverConfig {
 }
 
 /**
-Alias of [`EdgeValueInputs`] specifically for resistances. Please see the docstring of [`EdgeValueInputs`] for details.
+This struct is used to create the type alias [`CurrentSources`] of [`EdgeValueInputs`].
+It is usually not necessary to construct it directly.
+Please see the docstring of [`EdgeValueInputs`] for details.
  */
-pub type Resistances<'a> = EdgeValueInputs<'a, RESISTANCE>;
+#[derive(Clone, Copy)]
+pub struct CurrentSource;
 
 /**
-Alias of [`EdgeValueInputs`] specifically for current sources. Please see the docstring of [`EdgeValueInputs`] for details.
+This struct is used to create the type alias [`VoltageSources`] of [`EdgeValueInputs`].
+It is usually not necessary to construct it directly.
+Please see the docstring of [`EdgeValueInputs`] for details.
  */
-pub type CurrentSources<'a> = EdgeValueInputs<'a, CURRENT>;
+#[derive(Clone, Copy)]
+pub struct VoltageSource;
 
 /**
-Alias of [`EdgeValueInputs`] specifically for voltage sources. Please see the docstring of [`EdgeValueInputs`] for details.
+This struct is used to create the type alias [`Resistances`] of [`EdgeValueInputs`].
+It is usually not necessary to construct it directly.
+Please see the docstring of [`EdgeValueInputs`] for details.
  */
-pub type VoltageSources<'a> = EdgeValueInputs<'a, VOLTAGE>;
+#[derive(Clone, Copy)]
+pub struct Resistance;
 
-/// Marker trait which restricts the constant value for [`EdgeValueInputs`] to 0 (= [`Resistances`]),
-/// 1 (= [`CurrentSources`]) and 2 (= [`CurrentSources`]). This trait needs to have public visibility,
-/// but it doesn't do anything other than the aforementioned restriction and is therefore sealed.
-pub trait ValidTypeValues: private::Sealed {}
-
-mod private {
-    pub trait Sealed {}
+/**
+This trait describes how to convert the types [`CurrentSource`], [`VoltageSource`] and [`Resistance`]
+into variants of [`Type`]. It is usually not necessary to implement it for your own types or to use its methods.
+ */
+pub trait DeriveEdgeType: Clone + Copy {
+    fn as_type() -> Type;
 }
 
-// Restruct possible TYPE values of EdgeValueInputs.
-impl private::Sealed for Resistances<'_> {}
-impl private::Sealed for CurrentSources<'_> {}
-impl private::Sealed for VoltageSources<'_> {}
-impl ValidTypeValues for Resistances<'_> {}
-impl ValidTypeValues for CurrentSources<'_> {}
-impl ValidTypeValues for VoltageSources<'_> {}
+impl DeriveEdgeType for Resistance {
+    fn as_type() -> Type {
+        return Type::Resistance;
+    }
+}
+
+impl DeriveEdgeType for CurrentSource {
+    fn as_type() -> Type {
+        return Type::Current;
+    }
+}
+
+impl DeriveEdgeType for VoltageSource {
+    fn as_type() -> Type {
+        return Type::Voltage;
+    }
+}
+
+/**
+Type alias of [`EdgeValueInputs`] used for resistances. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
+pub type Resistances<'a> = EdgeValueInputs<'a, Resistance>;
+
+/**
+Type alias of [`EdgeValueInputs`] used for current sources. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
+pub type CurrentSources<'a> = EdgeValueInputs<'a, CurrentSource>;
+
+/**
+Type alias of [`EdgeValueInputs`] used for voltage sources. Please see the docstring of [`EdgeValueInputs`] for details.
+ */
+pub type VoltageSources<'a> = EdgeValueInputs<'a, VoltageSource>;
 
 /**
 Enum defining the edge input values for current / voltage excitations or resistances as either constants or via functions.
 
 Resistance values must always be strictly positive (larger than zero).
-The generic `TYPE` is:
-- 0 for resistances (alias: [`Resistances`])
-- 1 for current sources (alias: [`CurrentSources`])
-- 2 for voltage sources (alias: [`VoltageSources`])
  */
 #[derive(Clone, Copy)]
-pub enum EdgeValueInputs<'a, const TYPE: u8>
-where
-    EdgeValueInputs<'a, TYPE>: ValidTypeValues,
-{
+pub enum EdgeValueInputs<'a, T: DeriveEdgeType> {
     /**
     If all current / voltage excitations or resistances are constant, it can be convenient to provide their values as a slice.
     This slice has to fulfill the following constraints:
@@ -974,28 +999,20 @@ where
     Function(&'a dyn Fn(FunctionArgs<'_>)),
     /**
     If no edges of the specified type exist within the network, this variant can be used.
+    The `PhantomData` marker is needed to specify the edge type (current source, voltage source or resistance).
      */
-    None,
+    None(PhantomData<T>),
 }
 
-impl<'a, const TYPE: u8> EdgeValueInputs<'a, TYPE>
-where
-    EdgeValueInputs<'a, TYPE>: ValidTypeValues,
-{
+impl<'a, T: DeriveEdgeType> EdgeValueInputs<'a, T> {
     /**
     Check if `self` is valid according to the constraints outlined in the docstrings of the variants.
      */
     pub fn check(&self, edge_types: &[Type]) -> Result<(), SolveError> {
-        let type_of_self = match TYPE {
-            0 => Type::Resistance,
-            1 => Type::Current,
-            2 => Type::Voltage,
-            _ => unreachable!(),
-        };
-
         let edge_count = edge_types.len();
         match self {
             EdgeValueInputs::Slice(slice) => {
+                let type_of_self = T::as_type();
                 if slice.len() != edge_count {
                     return Err(SolveError::SliceWrongLength {
                         slice_type: type_of_self,
@@ -1028,6 +1045,7 @@ where
                 }
             }
             EdgeValueInputs::IdxAndVals(items) => {
+                let type_of_self = T::as_type();
                 for (idx, val) in items.iter().cloned() {
                     if val < 0.0 {
                         return Err(SolveError::NonPositiveResistance { val, idx });
@@ -1120,7 +1138,7 @@ where
             EdgeValueInputs::Function(fun) => {
                 fun(args);
             }
-            EdgeValueInputs::None => (),
+            EdgeValueInputs::None(PhantomData) => (),
         }
     }
 
@@ -1242,12 +1260,12 @@ fn calc_jacobian(data: JacobianData<'_>) {
 }
 
 // Solving without finite difference approximation
-let sol = mesh_analysis.solve(resistances, EdgeValueInputs::None, voltages, None, None, None, &config).expect("can be solved");
+let sol = mesh_analysis.solve(resistances, EdgeValueInputs::None(PhantomData), voltages, None, None, None, &config).expect("can be solved");
 let edge_currents_fd = sol.currents().to_vec();
 assert_eq!(sol.iter_count(), 119);
 
 // Solving with analytical Jacobian
-let sol = mesh_analysis.solve(resistances, EdgeValueInputs::None, voltages, None, None, Some(&mut calc_jacobian), &config).expect("can be solved");
+let sol = mesh_analysis.solve(resistances, EdgeValueInputs::None(PhantomData), voltages, None, None, Some(&mut calc_jacobian), &config).expect("can be solved");
 let edge_currents_an = sol.currents().to_vec();
 assert_eq!(sol.iter_count(), 34);
 
@@ -1314,7 +1332,7 @@ impl CoefficientMatrix {
 
     Returns `(edge_resistances, coefficient_matrix)`.
      */
-    pub(crate) fn calculate<const ANALYSIS_TYPE: u8>(
+    pub(crate) fn calculate<T: NetworkAnalysisPriv>(
         &mut self,
         edge_resistances: &[f64],
     ) -> &DMatrix<f64> {
@@ -1329,16 +1347,8 @@ impl CoefficientMatrix {
                         .par_iter()
                         .cloned()
                         .zip(edge_resistances.par_iter().cloned())
-                        .map(|(coupling, edge)| {
-                            if ANALYSIS_TYPE == MESH_ANALYSIS {
-                                coupling * edge
-                            } else if ANALYSIS_TYPE == NODAL_ANALYSIS {
-                                // Branchless algorithm to avoid dividing by zero
-                                let corrected_edge = (coupling == 0.0) as u8 as f64 + edge;
-                                coupling / corrected_edge
-                            } else {
-                                unreachable!("function is only valid for mesh or nodal analysis")
-                            }
+                        .map(|(coupling, value)| {
+                            T::combine_resistance_and_coupling(value, coupling)
                         })
                         .sum();
                 }
@@ -1556,6 +1566,7 @@ impl Buffer {
 mod tests {
 
     use super::*;
+    use crate::MeshAnalysis;
 
     #[test]
     fn test_network_excitation() {
@@ -1661,7 +1672,7 @@ mod tests {
         matrix[(2, 1)] = matrix[(1, 2)].clone();
 
         let mut coefficient_matrix = CoefficientMatrix::new(coeff_mat, matrix);
-        let res = coefficient_matrix.calculate::<MESH_ANALYSIS>(&[1.5, 0.5, 2.7, 0.1]);
+        let res = coefficient_matrix.calculate::<MeshAnalysis>(&[1.5, 0.5, 2.7, 0.1]);
 
         approx::assert_abs_diff_eq!(res[(0, 0)], 1.0, epsilon = 1e-3);
         approx::assert_abs_diff_eq!(res[(1, 0)], 0.0, epsilon = 1e-3);

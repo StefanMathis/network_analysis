@@ -88,7 +88,7 @@ impl NetworkAnalysis for NodalAnalysis {
         jacobian: Option<&mut (dyn for<'b> FnMut(JacobianData<'b>) + 'a)>,
         config: &SolverConfig,
     ) -> Result<Solution<'a>, SolveError> {
-        return NetworkAnalysisPriv::solve::<NODAL_ANALYSIS>(
+        return NetworkAnalysisPriv::solve(
             self,
             resistances,
             current_exc,
@@ -163,6 +163,12 @@ impl NetworkAnalysisPriv for NodalAnalysis {
             self.edge_types.as_slice(),
             &mut self.buf,
         );
+    }
+
+    fn combine_resistance_and_coupling(edge: f64, coupling: f64) -> f64 {
+        // Branchless algorithm to avoid dividing by zero
+        let corrected_edge = (coupling == 0.0) as u8 as f64 + edge;
+        coupling / corrected_edge
     }
 }
 

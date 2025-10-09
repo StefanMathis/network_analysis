@@ -26,7 +26,7 @@ fn test_two_voltage_sources() {
         let solution = network_analysis
             .solve(
                 Resistances::Slice(&[0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0]),
-                CurrentSources::None,
+                CurrentSources::None(PhantomData),
                 VoltageSources::Function(&calc_voltage_exc),
                 None,
                 None,

@@ -133,7 +133,7 @@ impl<'a> Solution<'a> {
     }
 
     /**
-    This function returns a filtered view on [`Solution::resistances`], which shows only
+    Returns a filtered view on [`Solution::resistances`], which shows only
     those entries of the edge resistance slice where the corresponding edge is a resistance.
      */
     pub fn resistances_and_indices(&'a self) -> EdgeValueAndType<'a> {
@@ -377,13 +377,13 @@ Trait which defines functionality shared between
  */
 pub trait NetworkAnalysis: Sized {
     /**
-    Create a new [`MeshAnalysis`](crate::MeshAnalysis) or [`NodalAnalysis`](crate::NodalAnalysis) instance from the given network.
+    Creates a new [`MeshAnalysis`](crate::MeshAnalysis) or [`NodalAnalysis`](crate::NodalAnalysis) instance from the given network.
     Since the network has already been checked during its creation, this operation is infallible.
      */
     fn new(network: &Network) -> Self;
 
     /**
-    Try to solve the network for the given excitations and resistances.
+    Tries to solve the network for the given excitations and resistances.
 
     This is the central method of [`NetworkAnalysis`] which tries to calculate a [`Solution`] which satisfies the given
     constraints (excitations and resistance).
@@ -872,7 +872,7 @@ impl SolverConfig {
 
 impl Default for SolverConfig {
     /**
-    See the docstring of [`SolverConfig`] for the default parameters values.
+    Creates a default [`SolverConfig`]. See the docstring of the struct for the default parameters values.
      */
     fn default() -> Self {
         Self {
@@ -915,6 +915,9 @@ This trait describes how to convert the types [`CurrentSource`], [`VoltageSource
 into variants of [`Type`]. It is usually not necessary to implement it for your own types or to use its methods.
  */
 pub trait DeriveEdgeType: Clone + Copy {
+    /**
+    Returns the corresponding [`Type`] variant of `Self`.
+     */
     fn as_type() -> Type;
 }
 
@@ -1006,7 +1009,14 @@ pub enum EdgeValueInputs<'a, T: DeriveEdgeType> {
 
 impl<'a, T: DeriveEdgeType> EdgeValueInputs<'a, T> {
     /**
-    Check if `self` is valid according to the constraints outlined in the docstrings of the variants.
+    Creates the `EdgeValueInputs::None` variant without the need of explicitly providing `PhantomData` as input.
+     */
+    pub fn none() -> Self {
+        return Self::None(PhantomData);
+    }
+
+    /**
+    Checks if `self` is valid according to the constraints outlined in the docstrings of the variants.
      */
     pub fn check(&self, edge_types: &[Type]) -> Result<(), SolveError> {
         let edge_count = edge_types.len();
@@ -1075,7 +1085,7 @@ impl<'a, T: DeriveEdgeType> EdgeValueInputs<'a, T> {
     }
 
     /**
-    Populate the edge values given in `args` (field `edge_value_and_type.values`) using `self`.
+    Populates the edge values given in `args` (field `edge_value_and_type.values`) using `self`.
 
     # Example
     ```

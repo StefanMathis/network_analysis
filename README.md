@@ -1,18 +1,18 @@
 network_analysis
 ================
 
-[`Network`]: https://docs.rs/network_analysis/0.2.0/network_analysis/network/struct.Network.html
-[`new`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
-[`solve`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
-[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.0/network_analysis/mesh_analysis/struct.MeshAnalysis.html
-[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.0/network_analysis/nodal_analysis/struct.NodalAnalysis.html
-[`CurrentSources`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/type.CurrentSources.html
-[`VoltageSources`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/type.VoltageSources.html
-[`Resistances`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/type.Resistances.html
-[`JacobianData`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/struct.JacobianData.html
-[`Solution`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/struct.Solution.html
-[`SolverConfig`]: https://docs.rs/network_analysis/0.2.0/network_analysis/shared/struct.SolverConfig.html
-[`Type`]: https://docs.rs/network_analysis/0.2.0/network_analysis/network/enum.Type.html
+[`Network`]: https://docs.rs/network_analysis/0.2.1/network_analysis/network/struct.Network.html
+[`new`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
+[`solve`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
+[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.1/network_analysis/mesh_analysis/struct.MeshAnalysis.html
+[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.1/network_analysis/nodal_analysis/struct.NodalAnalysis.html
+[`CurrentSources`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/type.CurrentSources.html
+[`VoltageSources`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/type.VoltageSources.html
+[`Resistances`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/type.Resistances.html
+[`JacobianData`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/struct.JacobianData.html
+[`Solution`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/struct.Solution.html
+[`SolverConfig`]: https://docs.rs/network_analysis/0.2.1/network_analysis/shared/struct.SolverConfig.html
+[`Type`]: https://docs.rs/network_analysis/0.2.1/network_analysis/network/enum.Type.html
 
 # Introduction
 
@@ -23,7 +23,7 @@ laws, such as magnetic or thermal circuits) via
 specifically [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) and
 [(modified) nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>).
 
-The full documentation is available at <https://docs.rs/network_analysis/0.2.0>.
+The full documentation is available at <https://docs.rs/network_analysis/0.2.1>.
 
 As an introductory example, let's consider the following network with seven
 elements ("edges"). Two of those elements are voltage sources, the rest are
@@ -82,7 +82,7 @@ speed up the solving process (such as good starting values) - they are ignored
 for now.
 */
 
-let current_exc = CurrentSources::None(PhantomData);
+let current_exc = CurrentSources::none();
 
 // Voltage excitation 0: 2 V, voltage excitation 4: 1 V
 let voltage_src = VoltageSources::Slice(&[2.0, 0.0, 0.0, 0.0, 1.0]); 
@@ -160,7 +160,7 @@ through the resistor. For x = 0, this function has the value k0, for x going
 towards +/- infinity, this function becomes k1 + k0.
 */
 
-let current_exc = CurrentSources::None(PhantomData);
+let current_exc = CurrentSources::none();
 
 // Magnetic voltage excitation 0: 2 A, magnetic voltage excitation 4: 1 A
 let voltage_src = VoltageSources::Slice(&[2.0, 0.0, 0.0, 0.0, 1.0]); 
@@ -310,6 +310,16 @@ and sources. The recalculated values are then used to formulate a new matrix
 equation and so on. Since this procedure is in essence a root finding problem
 (`A * x - b = 0`), the [Newton-Raphson](https://en.wikipedia.org/wiki/Newton%27s_method)
 algorithm is used.
+
+# Feature flags
+
+All features are disabled by default.
+
+## Serialization and deserialization
+
+The [`Network`] struct can be serialized and deserialized using the [serde](https://crates.io/crates/serde) crate.
+
+This functionality is gated behind the **serde** feature flag.
 
 # Literature
 

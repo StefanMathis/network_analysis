@@ -243,7 +243,7 @@ pub struct EdgeListEdge {
 
 impl EdgeListEdge {
     /**
-    Create a new instance of `Self` from its components.
+    Creates a new instance of `Self` from its components.
      */
     pub fn new(source: Vec<usize>, target: Vec<usize>, edge_type: Type) -> Self {
         return Self {
@@ -314,7 +314,7 @@ pub struct NodeEdge {
 
 impl NodeEdge {
     /**
-    Create a new instance of `Self` from its components.
+    Creates a new instance of `Self` from its components.
      */
     pub fn new(source: usize, target: usize, edge_type: Type) -> Self {
         return Self {

@@ -1,7 +1,8 @@
 /*!
 Implementation of nodal analysis for [`Network`]s.
 
-This module revolves around the [`NodalAnalysis`] struct which implements [`crate::base::NetworkAnalysis`]. See the struct documentation for details.
+This module revolves around the [`NodalAnalysis`] struct which implements the
+[`NetworkAnalysis`] trait. See the struct documentation for details.
 */
 
 use na::DMatrix;
@@ -12,28 +13,40 @@ use crate::{network::*, shared::*};
 /**
 Implementation of the nodal analysis algorithm for a nonlinear [`Network`].
 
-This struct holds components (mainly conversion matrices and buffers) needed to perform a modified
-[nodal analysis](<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html>) of a [`Network`]. The aforementioned conversion matrices are derived within
-the [`NetworkAnalysis::new`] method. They are then used within the [`NetworkAnalysis::solve`] method
-to try and solve the problem defined by the network, its excitation and resistances. An in-depth description of the solving process is given
-in [lib module docstring](`crate::lib`).
+This struct holds components (mainly conversion matrices and buffers) needed to
+perform a modified
+[nodal analysis](<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html>)
+of a [`Network`]. The aforementioned conversion matrices are derived within the
+[`NetworkAnalysis::new`] method. They are then used within the
+[`NetworkAnalysis::solve`] method to try and solve the problem defined by the
+network, its excitation and resistances. An in-depth description of the solving
+process is given in the [lib module docstring](`crate`).
 
-To get an general overview over nodal analysis, please have a look at the corresponding [Wikipedia entry]((<https://en.wikipedia.org/wiki/Nodal_analysis>).
-Some advanced features such as e.g. voltage sources or using custom Jacobians require an in-depth understanding of the method. It is therefore recommended to consult specialist
-literature such as \[1\], \[2\].
+To get an general overview over nodal analysis, please have a look at the
+corresponding [Wikipedia entry]((<https://en.wikipedia.org/wiki/Nodal_analysis>).
+Some advanced features such as e.g. voltage sources or using custom Jacobians
+require an in-depth understanding of the method. It is therefore recommended to
+consult specialist literature such as \[1\], \[2\].
 
-In comparison to the closely related [mesh analysis](https://en.wikipedia.org/wiki/Mesh_analysis) method, which is available via the [`MeshAnalysis`]
-struct, nodal analysis is especially well suited for networks with a low number of nodes in comparison to the number of edges and few voltage sources
-since the number of equations which need to be solved is equal to the number of nodes minus one (see [`NodalAnalysis::node_count()`]) plus the number of voltage sources.
+In comparison to the closely related
+[mesh analysis](https://en.wikipedia.org/wiki/Mesh_analysis) method, which is
+available via the [`MeshAnalysis`](crate::mesh_analysis::MeshAnalysis) struct,
+nodal analysis is especially well suited for networks with a low number of nodes
+in comparison to the number ofedges and few voltage sources since the number of
+equations which need to be solved is equal to the number of nodes minus one (see
+[`NodalAnalysis::node_count()`]) plus the number of voltage sources.
 
 # Examples
 
-The docstring of [`NetworkAnalysis::solve`] as well as the [lib module docstring](`crate::lib`) show some examples
-on how to perform nodal analysis. Furthermore, a variety of examples is provided in the `examples` directory of the repository.
+The docstring of [`NetworkAnalysis::solve`] as well as the
+[lib module docstring](`crate`) show some examples on how to perform nodal
+analysis. Furthermore, a variety of examples is provided in the `examples`
+directory of the repository.
 
 # Literature
 
-1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
+1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
+Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
 2) Modified nodal analysis: <https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html>
  */
 #[derive(Debug, Clone)]
@@ -271,7 +284,7 @@ impl NodalAnalysis {
     Returns a conversion matrix from node to edge voltages.
     This function is mainly meant to be used in custom Jacobian implementations.
 
-    As explained in the docstring of [`JacobianFunctionSignature`], a custom Jacobian
+    As explained in the docstring of [`JacobianData`], a custom Jacobian
     function receives the node voltages as an input argument. The matrix provided by
     this function can then be used to calculate the edge currents via matrix
     multiplication:

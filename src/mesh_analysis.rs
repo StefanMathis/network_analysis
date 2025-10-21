@@ -1,7 +1,8 @@
 /*!
 Implementation of mesh analysis for [`Network`]s.
 
-This module revolves around the [`MeshAnalysis`] struct which implements [`crate::base::NetworkAnalysis`]. See the struct documentation for details.
+This module revolves around the [`MeshAnalysis`] struct which implements the
+[`NetworkAnalysis`] trait. See the struct documentation for details.
 */
 
 use na::DMatrix;
@@ -14,28 +15,37 @@ Implementation of the mesh analysis algorithm for a nonlinear [`Network`].
 
 # Overview
 
-This struct holds components (mainly conversion matrices and buffers) needed to perform a
-[mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) of a [`Network`]. The aforementioned conversion matrices are derived within
-the [`NetworkAnalysis::new`] method. They are then used within the [`NetworkAnalysis::solve`] method
-to try and solve the problem defined by the network, its excitation and resistances. An in-depth description of the solving process is given
-in [lib module docstring](`crate::lib`).
+This struct holds components (mainly conversion matrices and buffers) needed to
+perform a [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) of a
+[`Network`]. The aforementioned conversion matrices are derived within the
+[`NetworkAnalysis::new`] method. They are then used within the
+[`NetworkAnalysis::solve`] method to try and solve the problem defined by the
+network, its excitation and resistances. An in-depth description of the solving
+process is given in the [lib module docstring](`crate`).
 
-To get an general overview over mesh analysis, please have a look at the corresponding [Wikipedia entry]((<https://en.wikipedia.org/wiki/Mesh_analysis>).
-Some advanced features such as e.g. custom Jacobians require an in-depth understanding of the method. It is therefore recommended to consult specialist
+To get an general overview over mesh analysis, please have a look at the
+corresponding [Wikipedia entry]((<https://en.wikipedia.org/wiki/Mesh_analysis>).
+Some advanced features such as e.g. custom Jacobians require an in-depth
+understanding of the method. It is therefore recommended to consult specialist
 literature such as \[1\].
 
-In comparison to the closely related [nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>) method, which is available via the [`NodalAnalysis`]
-struct, mesh analysis is especially well suited for networks with many nodes and few loops (i.e. many elements in serial) or with many voltage sources.
-The number of equations is equal to the number of meshes ([`MeshAnalysis::mesh_count`]).
+In comparison to the closely related
+[nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>) method, which
+is available via the [`NodalAnalysis`](crate::nodal_analysis::NodalAnalysis)
+struct, mesh analysis is especially well suited for networks with many nodes and
+few loops (i.e. many elements in serial) or with many voltage sources. The
+number of equations is equal to the number of meshes ([`MeshAnalysis::mesh_count`]).
 
 # Examples
 
-The docstring of [`NetworkAnalysis::solve`] as well as the [lib module docstring](`crate::lib`) show some examples
-on how to perform mesh analysis. Furthermore, a variety of examples is provided in the `examples` directory of the repository.
+The docstring of [`NetworkAnalysis::solve`] as well as the
+[lib module docstring](`crate`) show some examples on how to perform mesh
+analysis.
 
 # Literature
 
-1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
+1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
+Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
  */
 #[derive(Debug, Clone)]
 pub struct MeshAnalysis {
@@ -276,7 +286,8 @@ impl MeshAnalysis {
 
     # Literature
 
-    1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
+    1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
+    Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
      */
     pub fn edge_to_mesh_resistance(&self) -> &DMatrix<Vec<f64>> {
         return &self.coefficient_matrix.edge_to_network_resistance();
@@ -286,7 +297,7 @@ impl MeshAnalysis {
     Returns a conversion matrix from mesh to edge currents.
     This function is mainly meant to be used in custom Jacobian implementations.
 
-    As explained in the docstring of [`JacobianFunctionSignature`], a custom Jacobian
+    As explained in the docstring of [`JacobianData`], a custom Jacobian
     function receives the mesh currents as an input argument. The matrix provided by
     this function can then be used to calculate the edge currents via matrix
     multiplication:

@@ -652,7 +652,7 @@ impl Network {
     }
 
     /**
-    Accesses the [`petgraph::stable_graph::UnGraph`] representation of the network.
+    Accesses the [`UnGraph`](https://docs.rs/petgraph/0.8.3/petgraph/graph/type.UnGraph.html) representation of the network.
 
     The network analysis structs [`MeshAnalysis`](crate::mesh_analysis::MeshAnalysis) and
     [`NodalAnalysis`](crate::nodal_analysis::NodalAnalysis) use [`petgraph`](https://crates.io/crates/petgraph)s

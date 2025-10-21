@@ -31,7 +31,7 @@ As an introductory example, let's consider the following network with seven
 elements ("edges"). Two of those elements are voltage sources, the rest are
 resistances.
 
-![Image doc/example.svg could not be displayed, please read the README on github: https://github.com/StefanMathis/network_analysis.git](doc/example.svg "A simple electrical network")
+![Image doc/example.svg could not be displayed, please read the README on github: <https://github.com/StefanMathis/network_analysis.git>](doc/example.svg "A simple electrical network")
 
 To analyze this network using the network_analysis crate, it is first described
 and checked for errors (such as e.g. short circuits). Afterwards, the voltage
@@ -225,10 +225,10 @@ Examples: Electrical and magnetic voltage, temperature drop
 
 These three quantities are related to each other via $R \cdot I = U$. 
 
-This crate uses the [petgraph](https://docs.rs/petgraph/0.8.3/petgraph/index.html)
+This crate uses the [petgraph](<https://docs.rs/petgraph/0.8.3/petgraph/index.html>)
 crate and therefore also its terminology to describe networks:
 
-![Image doc/graph_terminology.svg could not be displayed, please read the README on github: https://github.com/StefanMathis/network_analysis.git](doc/graph_terminology.svg "Graph terminology")
+![Image doc/graph_terminology.svg could not be displayed, please read the README on github: <https://github.com/StefanMathis/network_analysis.git>](doc/graph_terminology.svg "Graph terminology")
 
 - Node: Terminal of one end of an edge
 - Edge: (Directed) connection between two nodes

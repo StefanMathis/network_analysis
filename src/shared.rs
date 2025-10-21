@@ -10,7 +10,7 @@ and solving as well as the corresponding [`SolveError`].
 as three aliases [`Resistances`], [`CurrentSources`] and [`VoltageSources`].
 */
 
-use crate::{Type, finite_diff::central_jacobian, network::Network};
+use crate::{finite_diff::central_jacobian, network::Network, Type};
 use approx::ulps_eq;
 use na::{DMatrix, DVector};
 use rayon::prelude::*;
@@ -816,6 +816,11 @@ pub(crate) trait NetworkAnalysisPriv: NetworkAnalysis {
 Solver parameters used in the [`NetworkAnalysis::solve`] function.
 
 The default values given for each field are used in the implementation of the [`Default`] trait.
+
+# Features
+
+This struct can be serialized / deserialized via the [serde](https://crates.io/crates/serde)
+crate if the `serde` feature is enabled.
 */
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]

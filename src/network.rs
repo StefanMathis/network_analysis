@@ -163,6 +163,11 @@ physical quantities which follow the physical relationship `voltage = current * 
 Examples:
 - Magnetic domain: Magnetic voltage (voltage), magnetic flux (current), reluctance (resistance)
 - Thermal domain: Temperature difference (voltage), power (current), thermal resistance (resistance)
+
+# Features
+
+This enum can be serialized / deserialized via the [serde](https://crates.io/crates/serde)
+crate if the `serde` feature is enabled.
  */
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -232,6 +237,11 @@ assert!(Network::from_edge_list_edges(
         ]
     ).is_ok());
 ```
+
+# Features
+
+This struct can be serialized / deserialized via the [serde](https://crates.io/crates/serde)
+crate if the `serde` feature is enabled.
  */
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -303,6 +313,11 @@ assert!(Network::from_node_edges(
     ]
 ).is_err());
 ```
+
+# Features
+
+This struct can be serialized / deserialized via the [serde](https://crates.io/crates/serde)
+crate if the `serde` feature is enabled.
  */
 #[derive(Debug, Clone, Copy)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -372,12 +387,11 @@ Please see the docstrings of the methods for examples.
 
 # Serialization and deserialization
 
+Serialization and deserialization requires that the `serde` feature is enabled.
 This struct serializes into a `Vec<NodeEdge>` and can be (fallible) deserialized from the following types:
 - `Vec<NodeEdge>`
 - `Vec<EdgeListEdge>`
 - `UnGraph<usize, Type>`
-
-Available when the feature **serde** is enabled.
  */
 #[repr(transparent)]
 #[derive(Debug, Clone)]

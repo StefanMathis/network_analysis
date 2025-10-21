@@ -1,6 +1,6 @@
 [package]
 name = "network_analysis"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 description = "Solver for nonlinear networks based on the mesh and nodal analysis methods"
 readme = "README.md"
@@ -22,4 +22,7 @@ default = []
 serde = ["dep:serde", "nalgebra/serde-serialize", "petgraph/serde-1"]
 
 [dev-dependencies]
-network_analysis = { path = ".", features = ["serde"] } # Solution from https://stackoverflow.com/questions/68618789/is-it-possible-to-enable-a-rust-feature-only-in-test to enable feature during integration test
+network_analysis = { path = ".", features = ["serde"] }
+
+[package.metadata.docs.rs]
+features = ["serde"]

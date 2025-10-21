@@ -7,8 +7,6 @@ readme = "README.md"
 license  = "MIT OR Apache-2.0"
 repository = "https://github.com/StefanMathis/network_analysis.git"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 petgraph = { version = "0.8.3", features = ["rayon"]}
 nalgebra = {version = "0.32"}

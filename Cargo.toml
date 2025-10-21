@@ -13,11 +13,12 @@ nalgebra = {version = "0.32"}
 rayon = "1.5"
 cart_lin = { version = "0.2.1"}
 approx = "0.5.1"
+serde-value = { version = "0.7", optional = true }
 serde = { version = "1", features = ["derive", "rc"], optional = true }
 
 [features]
 default = []
-serde = ["dep:serde", "nalgebra/serde-serialize", "petgraph/serde-1"]
+serde = ["dep:serde", "nalgebra/serde-serialize", "petgraph/serde-1", "serde-value"]
 
 [dev-dependencies]
 network_analysis = { path = ".", features = ["serde"] }

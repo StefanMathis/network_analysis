@@ -404,9 +404,7 @@ impl<'de> Deserialize<'de> for Network {
     where
         D: serde::Deserializer<'de>,
     {
-        let content =
-            <serde::__private::de::Content as serde::Deserialize>::deserialize(deserializer)?;
-        let deserializer = serde::__private::de::ContentRefDeserializer::<D::Error>::new(&content);
+        let content = serde_value::Value::deserialize(deserializer)?;
 
         /*
         Try to deserialize this struct from either a
@@ -414,13 +412,20 @@ impl<'de> Deserialize<'de> for Network {
         - `Vec<NodeEdge>`
         - `Vec<EdgeListEdge>`
          */
-        if let Ok(graph) = UnGraph::<usize, Type>::deserialize(deserializer) {
+        if let Ok(graph) = UnGraph::<usize, Type>::deserialize(serde_value::ValueDeserializer::<
+            D::Error,
+        >::new(content.clone()))
+        {
             return Self::new(graph).map_err(serde::de::Error::custom);
         }
-        if let Ok(coll) = Vec::<NodeEdge>::deserialize(deserializer) {
+        if let Ok(coll) = Vec::<NodeEdge>::deserialize(
+            serde_value::ValueDeserializer::<D::Error>::new(content.clone()),
+        ) {
             return Self::from_node_edges(coll.as_slice()).map_err(serde::de::Error::custom);
         }
-        if let Ok(coll) = Vec::<EdgeListEdge>::deserialize(deserializer) {
+        if let Ok(coll) = Vec::<EdgeListEdge>::deserialize(
+            serde_value::ValueDeserializer::<D::Error>::new(content),
+        ) {
             return Self::from_edge_list_edges(coll.as_slice()).map_err(serde::de::Error::custom);
         }
 

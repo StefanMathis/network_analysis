@@ -1,6 +1,6 @@
 [package]
 name = "network_analysis"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2024"
 description = "Solver for nonlinear networks based on the mesh and nodal analysis methods"
 readme = "README.md"
@@ -15,6 +15,13 @@ cart_lin = { version = "0.2.1"}
 approx = "0.5.1"
 serde-value = { version = "0.7", optional = true }
 serde = { version = "1", features = ["derive", "rc"], optional = true }
+
+include = [
+    "src/**",
+    "Cargo.toml",
+    "README.md",
+    "docs/**",
+]
 
 [features]
 default = []

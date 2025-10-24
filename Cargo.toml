@@ -12,6 +12,7 @@ include = [
     "README.md",
     "docs/**",
     "tests/**",
+    "build.rs",
 ]
 
 [dependencies]

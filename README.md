@@ -1,20 +1,20 @@
 network_analysis
 ================
 
-[`Network`]: https://docs.rs/network_analysis/0.2.3/network_analysis/network/struct.Network.html
-[`EdgeListEdge`]: https://docs.rs/network_analysis/0.2.3/network_analysis/network/struct.EdgeListEdge.html
-[`NodeEdge`]: https://docs.rs/network_analysis/0.2.3/network_analysis/network/struct.NodeEdge.html
-[`new`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
-[`solve`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
-[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.3/network_analysis/mesh_analysis/struct.MeshAnalysis.html
-[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.3/network_analysis/nodal_analysis/struct.NodalAnalysis.html
-[`CurrentSources`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/type.CurrentSources.html
-[`VoltageSources`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/type.VoltageSources.html
-[`Resistances`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/type.Resistances.html
-[`JacobianData`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/struct.JacobianData.html
-[`Solution`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/struct.Solution.html
-[`SolverConfig`]: https://docs.rs/network_analysis/0.2.3/network_analysis/shared/struct.SolverConfig.html
-[`Type`]: https://docs.rs/network_analysis/0.2.3/network_analysis/network/enum.Type.html
+[`Network`]: https://docs.rs/network_analysis/0.2.4/network_analysis/network/struct.Network.html
+[`EdgeListEdge`]: https://docs.rs/network_analysis/0.2.4/network_analysis/network/struct.EdgeListEdge.html
+[`NodeEdge`]: https://docs.rs/network_analysis/0.2.4/network_analysis/network/struct.NodeEdge.html
+[`new`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
+[`solve`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
+[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.4/network_analysis/mesh_analysis/struct.MeshAnalysis.html
+[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.4/network_analysis/nodal_analysis/struct.NodalAnalysis.html
+[`CurrentSources`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/type.CurrentSources.html
+[`VoltageSources`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/type.VoltageSources.html
+[`Resistances`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/type.Resistances.html
+[`JacobianData`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/struct.JacobianData.html
+[`Solution`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/struct.Solution.html
+[`SolverConfig`]: https://docs.rs/network_analysis/0.2.4/network_analysis/shared/struct.SolverConfig.html
+[`Type`]: https://docs.rs/network_analysis/0.2.4/network_analysis/network/enum.Type.html
 
 # Introduction
 
@@ -25,7 +25,7 @@ laws, such as magnetic or thermal circuits) via
 specifically [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) and
 [(modified) nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>).
 
-The full documentation is available at <https://docs.rs/network_analysis/0.2.3>.
+The full documentation is available at <https://docs.rs/network_analysis/0.2.4>.
 
 As an introductory example, let's consider the following network with seven
 elements ("edges"). Two of those elements are voltage sources, the rest are
@@ -216,11 +216,11 @@ for solution in [solution_mesh, solution_nodal].into_iter() {
 The network analysis tools provided by this crate can be applied to multiple
 domains, e.g. for electrical, thermal or magnetic networks. To simplify the
 wording in the documentation, the following definitions are used:
-* **Resistance $R$**: Describes the opposition of a network element to the
+* **Resistance _R_**: Describes the opposition of a network element to the
 current. Examples: Electrical, magnetic, thermal resistance
-* **Current $I$**: Describes the flow of some physical quantity between two
+* **Current _I_**: Describes the flow of some physical quantity between two
 network nodes. Examples: Electrical current, magnetic flux, energy transfer / power
-* **Voltage $U$**: Describes the potential drop over a network element.
+* **Voltage _U_**: Describes the potential drop over a network element.
 Examples: Electrical and magnetic voltage, temperature drop
 
 These three quantities are related to each other via $R \cdot I = U$. 

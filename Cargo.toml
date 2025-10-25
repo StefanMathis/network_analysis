@@ -1,6 +1,6 @@
 [package]
 name = "network_analysis"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2024"
 description = "Solver for nonlinear networks based on the mesh and nodal analysis methods"
 readme = "README.md"
@@ -12,7 +12,6 @@ include = [
     "README.md",
     "docs/**",
     "tests/**",
-    "build.rs",
 ]
 
 [dependencies]

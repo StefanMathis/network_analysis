@@ -31,7 +31,7 @@ As an introductory example, let's consider the following network with seven
 elements ("edges"). Two of those elements are voltage sources, the rest are
 resistances.
 
-![](https://raw.githubusercontent.com/StefanMathis/network_analysis/main/docs/example.svg "A simple electrical network")
+![](docs/example.svg "A simple electrical network")
 
 To analyze this network using the network_analysis crate, it is first described
 and checked for errors (such as e.g. short circuits). Afterwards, the voltage
@@ -228,7 +228,7 @@ These three quantities are related to each other via $R \cdot I = U$.
 This crate uses the [petgraph](<https://docs.rs/petgraph/0.8.3/petgraph/index.html>)
 crate and therefore also its terminology to describe networks:
 
-![](https://raw.githubusercontent.com/StefanMathis/network_analysis/main/docs//graph_terminology.svg "Graph terminology")
+![](docs/graph_terminology.svg "Graph terminology")
 
 - Node: Terminal of one end of an edge
 - Edge: (Directed) connection between two nodes

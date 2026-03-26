@@ -16,6 +16,16 @@ network_analysis
 [`SolverConfig`]: https://docs.rs/network_analysis/0.2.6/network_analysis/shared/struct.SolverConfig.html
 [`Type`]: https://docs.rs/network_analysis/0.2.6/network_analysis/network/enum.Type.html
 
+[![Documentation](https://docs.rs/network_analysis/badge.svg)](https://docs.rs/network_analysis)
+
+A solver for nonlinear networks based on the mesh and nodal analysis methods.
+
+The full API documentation is available at <https://docs.rs/network_analysis/0.2.6/network_analysis>.
+
+> **Feedback welcome!**  
+> Found a bug, missing docs, or have a feature request?  
+> Please open an issue on GitHub.
+
 # Introduction
 
 This crate allows calculating the electrical currents and voltages of planar

@@ -2,7 +2,7 @@
 name = "network_analysis"
 version = "0.2.6"
 edition = "2024"
-description = "Solver for nonlinear networks based on the mesh and nodal analysis methods"
+description = "Solver for nonlinear networks based on the mesh and nodal analysis methods."
 readme = "README.md"
 license  = "MIT OR Apache-2.0"
 repository = "https://github.com/StefanMathis/network_analysis.git"

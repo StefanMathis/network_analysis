@@ -1,11 +1,4 @@
-#![cfg_attr(
-    docsrs,
-    doc = include_str!("../README_docsrs.md")
-)]
-#![cfg_attr(
-    not(docsrs),
-    doc = include_str!("../README_local.md")
-)]
+#![doc = include_str!("../README.md")]
 
 extern crate nalgebra as na;
 extern crate petgraph;

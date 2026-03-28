@@ -47,8 +47,11 @@ pub enum BuildError {
     Variant contains the indices of the two offending current sources and the input graph.
      */
     TwoCurrentExcitations {
+        /// Index of the first edge.
         first_edge: EdgeIndex,
+        /// Index of the second edge.
         second_edge: EdgeIndex,
+        /// Input graph.
         graph: UnGraph<usize, Type>,
     },
     /**
@@ -58,7 +61,9 @@ pub enum BuildError {
     Variant contains the index of the "dead end" node and the input graph.
      */
     DeadEnd {
+        /// Node index of the dead end.
         node: NodeIndex,
+        /// Input graph.
         graph: UnGraph<usize, Type>,
     },
     /**
@@ -67,7 +72,9 @@ pub enum BuildError {
     Variant contains the index of the short-circuited edge and the input graph.
      */
     ShortCircuit {
+        /// Index of the short-circuited edge.
         edge: EdgeIndex,
+        /// Input graph.
         graph: UnGraph<usize, Type>,
     },
     /**
@@ -87,7 +94,9 @@ pub enum BuildError {
     Variant contains the index of one current source edge which must be changed to make the graph valid as well as the input graph.
      */
     OverdefinedByCurrentSources {
+        /// Index of the overdefined edge.
         edge: EdgeIndex,
+        /// Input graph.
         graph: UnGraph<usize, Type>,
     },
     /**
@@ -103,7 +112,9 @@ pub enum BuildError {
     Variant contains the index of one voltage source edge which must be changed to make the graph valid as well as the input graph.
      */
     OverdefinedByVoltageSources {
+        /// Index of the overdefined edge.
         edge: EdgeIndex,
+        /// Input graph.
         graph: UnGraph<usize, Type>,
     },
 }
@@ -172,8 +183,11 @@ crate if the `serde` feature is enabled.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Type {
+    /// Voltage.
     Voltage,
+    /// Current.
     Current,
+    /// Resistance.
     Resistance,
 }
 
@@ -191,9 +205,10 @@ impl std::fmt::Display for Type {
 /**
 An edge where the nodes are defined implicitly via the other edges using them.
 
-The `edge_type` describes whether the edge is a resistance, a current or a voltage source.
-If the edge has an excitation, it is always oriented from source to target.
-The index of each `EdgeListEdge` in `network` equals the index of the represented edge itself.
+The [`EdgeListEdge::edge_type`] field describes whether the edge is a
+resistance, a current or a voltage source. If the edge has an excitation, it is
+always oriented from source to target. The index of each [`EdgeListEdge`] in
+the network equals the index of the represented edge itself.
 
 # Examples
 ```
@@ -246,8 +261,13 @@ crate if the `serde` feature is enabled.
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct EdgeListEdge {
+    /// Source node of the edge (defined by the indices of other edges which
+    /// use this node either as a source or as a target).
     pub source: Vec<usize>,
+    /// Target node of the edge (defined by the indices of other edges which
+    /// use this node either as a source or as a target).
     pub target: Vec<usize>,
+    /// Edge type.
     pub edge_type: Type,
 }
 
@@ -322,8 +342,11 @@ crate if the `serde` feature is enabled.
 #[derive(Debug, Clone, Copy)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NodeEdge {
+    /// Index of the source node.
     pub source: usize,
+    /// Index of the target node.
     pub target: usize,
+    /// Edge type.
     pub edge_type: Type,
 }
 

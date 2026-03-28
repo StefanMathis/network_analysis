@@ -10,7 +10,7 @@ and solving as well as the corresponding [`SolveError`].
 as three aliases [`Resistances`], [`CurrentSources`] and [`VoltageSources`].
 */
 
-use crate::{finite_diff::central_jacobian, network::Network, Type};
+use crate::{Type, finite_diff::central_jacobian, network::Network};
 use approx::ulps_eq;
 use na::{DMatrix, DVector};
 use rayon::prelude::*;
@@ -40,8 +40,11 @@ pub enum SolveError {
     The length of the underlying slice is not equal to the edge count.
      */
     SliceWrongLength {
+        /// Slice type (resistance, current or voltage source).
         slice_type: Type,
+        /// Length of the slice.
         slice_length: usize,
+        /// Number of edges.
         edge_count: usize,
     },
     /**
@@ -49,23 +52,35 @@ pub enum SolveError {
     At least one of the indices (`idx`) is equal to or larger than the edge count, which would result in an out-of-bounds access.
     */
     OutOfBoundsIdx {
+        /// Edge type (resistance, current or voltage source).
         idx_and_val_type: Type,
+        /// Index which is larger than edge_count.
         idx: usize,
+        /// Number of edges.
         edge_count: usize,
     },
     /**
     [`Resistances`] must always have positive values (larger than zero), but the negative value `val` was found at edge `idx`.
      */
-    NonPositiveResistance { val: f64, idx: usize },
+    NonPositiveResistance {
+        /// Value of the non-positive resistance.
+        val: f64,
+        /// Index of the non-positive resistance.
+        idx: usize,
+    },
     /**
     If one of [`Resistances`], [`CurrentSources`] or [`VoltageSources`] produce a nonzero value `val` at edge `idx`,
     but the edge has a different type `edge_type_at_idx`, this error variant is returned. As explained in the docstrings
     of the two enums, they must only produce nonzero values for edges of the same type.
      */
     NonzeroForMismatchedEdgeType {
+        /// Value of the mismatched edge.
         val: f64,
+        /// Index of the mismatched edge.
         idx: usize,
+        /// Edge type at `idx` (resistance, current or voltage source).
         edge_type_at_idx: Type,
+        /// Type of the mismatched edge.
         edge_type_check: Type,
     },
 }
@@ -195,8 +210,11 @@ See [`EdgeValueAndType::iter`] for an example.
  */
 #[derive(Debug)]
 pub struct EdgeValueAndType<'a> {
+    /// Edge values.
     pub values: &'a [f64],
+    /// Edge types.
     pub edge_types: &'a [Type],
+    /// Type of this struct (resistance, current or voltage source).
     pub value_type: Type,
 }
 
@@ -275,8 +293,11 @@ See [`EdgeValueAndTypeMut::iter_mut`] for an example.
  */
 #[derive(Debug)]
 pub struct EdgeValueAndTypeMut<'a> {
+    /// Edge values.
     pub values: &'a mut [f64],
+    /// Edge types.
     pub edge_types: &'a [Type],
+    /// Type of this struct (resistance, current or voltage source).
     pub value_type: Type,
 }
 

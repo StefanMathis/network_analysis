@@ -1,6 +1,10 @@
 network_analysis
 ================
 
+<!-- This file has ben generated with build.rs by concatenating docs/links.md,
+docs/main.md and (if available docs/end.md). Do not modify this file, instead
+modify the components. -->
+
 [`Network`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.Network.html
 [`EdgeListEdge`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.EdgeListEdge.html
 [`NodeEdge`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.NodeEdge.html
@@ -15,6 +19,8 @@ network_analysis
 [`Solution`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/struct.Solution.html
 [`SolverConfig`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/struct.SolverConfig.html
 [`Type`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/enum.Type.html
+[graph_terminology.svg]: https://raw.githubusercontent.com/StefanMathis/network_analysis/refs/heads/main/docs/img/graph_terminology.svg
+[example.svg]: https://raw.githubusercontent.com/StefanMathis/network_analysis/refs/heads/main/docs/img/example.svg
 
 [![Documentation](https://docs.rs/network_analysis/badge.svg)](https://docs.rs/network_analysis)
 
@@ -24,7 +30,7 @@ The full API documentation is available at <https://docs.rs/network_analysis/0.2
 
 > **Feedback welcome!**  
 > Found a bug, missing docs, or have a feature request?  
-> Please open an issue on GitHub.
+> Please open an issue on [GitHub](https://github.com/StefanMathis/network_analysis.git).
 
 # Introduction
 
@@ -35,13 +41,11 @@ laws, such as magnetic or thermal circuits) via
 specifically [mesh analysis](<https://en.wikipedia.org/wiki/Mesh_analysis>) and
 [(modified) nodal analysis](<https://en.wikipedia.org/wiki/Nodal_analysis>).
 
-The full documentation is available at <https://docs.rs/network_analysis/0.2.7>.
-
 As an introductory example, let's consider the following network with seven
 elements ("edges"). Two of those elements are voltage sources, the rest are
 resistances.
 
-![](https://raw.githubusercontent.com/StefanMathis/network_analysis/main/docs/example.svg "A simple electrical network")
+![A simple electrical network][example.svg]
 
 To analyze this network using the network_analysis crate, it is first described
 and checked for errors (such as e.g. short circuits). Afterwards, the voltage
@@ -238,7 +242,7 @@ These three quantities are related to each other via $R \cdot I = U$.
 This crate uses the [petgraph](<https://docs.rs/petgraph/0.8.3/petgraph/index.html>)
 crate and therefore also its terminology to describe networks:
 
-![](https://raw.githubusercontent.com/StefanMathis/network_analysis/main/docs//graph_terminology.svg "Graph terminology")
+![Graph terminology][graph_terminology.svg]
 
 - Node: Terminal of one end of an edge
 - Edge: (Directed) connection between two nodes
@@ -273,7 +277,7 @@ underlying circuit. This can be done creating a
 then converting it into a network or via simple edge structs provided by this
 crate. Please see the docstring of [`Network`] for details.
 
-### 2) Stating the problem and solving it
+### 2) Defining the problem and solving it
 
 As shown before, this crate offers two different ways of solving a network -
 mesh analysis or nodal analysis. In principle, a network can be solved with any

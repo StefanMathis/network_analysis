@@ -786,12 +786,12 @@ pub(crate) fn find_spanning_tree(graph: &UnGraph<usize, Type>) -> SpanningTree {
             independent_branch
                 .edges
                 .back()
-                .expect("This function is only called when independent_branch.edges already has an element populated.")
+                .expect("This function is only called when independent_branch.edges already has an element.")
         } else {
             independent_branch
                 .edges
                 .front()
-                .expect("This function is only called when independent_branch.edges already has an element populated.")
+                .expect("This function is only called when independent_branch.edges already has an element.")
         };
 
         let branch_end_node = if start_from_source {
@@ -856,7 +856,7 @@ pub(crate) fn find_spanning_tree(graph: &UnGraph<usize, Type>) -> SpanningTree {
                                 graph,
                                 spanning_tree,
                                 independent_branch,
-                                start_from_source,
+                                !start_from_source,
                             );
                         }
                     }
@@ -891,7 +891,7 @@ pub(crate) fn find_spanning_tree(graph: &UnGraph<usize, Type>) -> SpanningTree {
                 branch.coupling.push_back(true);
 
                 // If only one edge is attached to node a or b, this edge belongs to the independent branch as well.
-                // Repeat this process until a node is encountered which features multiple edges connrected to it.
+                // Repeat this process until a node is encountered which features multiple edges connected to it.
                 try_remove_adjacent_edge(graph, &mut spanning_tree, &mut branch, true);
                 try_remove_adjacent_edge(graph, &mut spanning_tree, &mut branch, false);
 
@@ -909,15 +909,22 @@ pub(crate) fn find_spanning_tree(graph: &UnGraph<usize, Type>) -> SpanningTree {
     Mathis, S.: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
     PhD thesis, TU Kaiserslautern, Shaker-Verlag, 2019, p.61f.
 
-    A deep copy of the graph is created and the algorithmus tries to remove edges while keeping all nodes connected.
-    If a connection would be lost due to the removal of the current edge, keep the edge instead and try removing the next one.
-    The returned result of this operation is a reduced network which connects all nodes w/o having a circular connection.
+    A deep copy of the graph is created and the algorithmus tries to remove
+    edges while keeping all nodes connected. If a connection would be lost due
+    to the removal of the current edge, keep the edge instead and try removing
+    the next one. The returned result of this operation is a reduced network
+    which connects all nodes w/o having a circular connection.
 
-    A traditional problem of mesh analysis has been the treatment of current sources. This implementation uses the following strategy to deal with those:
-    When building the spanning tree, two consecutive passes are done over all edges. In the first pass, only branches with current sources are tried.
-    If they can be made into an independent branch, they automatically define the mesh current through this branch. If they can't be made into an
-    independent branch, the network is overdefined. They are then ignored during the solving process and only used in a post-processing step.
-    In the second pass, all non-current-source branches are tried again until a spanning tree remains.
+    A traditional problem of mesh analysis has been the treatment of current
+    sources. This implementation uses the following strategy to deal with those:
+    When building the spanning tree, two consecutive passes are done over all
+    edges. In the first pass, only branches with current sources are tried.
+    If they can be made into an independent branch, they automatically define
+    the mesh current through this branch. If they can't be made into an
+    independent branch, the network is overdefined. They are then ignored during
+    the solving process and only used in a post-processing step. In the second
+    pass, all non-current-source branches are tried again until a spanning tree
+    remains.
     */
     let mut spanning_tree: StableUnGraph<usize, Type> = graph.clone().into();
 

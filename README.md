@@ -5,20 +5,20 @@ network_analysis
 docs/main.md and (if available docs/end.md). Do not modify this file, instead
 modify the components. -->
 
-[`Network`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.Network.html
-[`EdgeListEdge`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.EdgeListEdge.html
-[`NodeEdge`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/struct.NodeEdge.html
-[`new`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
-[`solve`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
-[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.7/network_analysis/mesh_analysis/struct.MeshAnalysis.html
-[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.7/network_analysis/nodal_analysis/struct.NodalAnalysis.html
-[`CurrentSources`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/type.CurrentSources.html
-[`VoltageSources`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/type.VoltageSources.html
-[`Resistances`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/type.Resistances.html
-[`JacobianData`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/struct.JacobianData.html
-[`Solution`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/struct.Solution.html
-[`SolverConfig`]: https://docs.rs/network_analysis/0.2.7/network_analysis/shared/struct.SolverConfig.html
-[`Type`]: https://docs.rs/network_analysis/0.2.7/network_analysis/network/enum.Type.html
+[`Network`]: https://docs.rs/network_analysis/0.2.8/network_analysis/network/struct.Network.html
+[`EdgeListEdge`]: https://docs.rs/network_analysis/0.2.8/network_analysis/network/struct.EdgeListEdge.html
+[`NodeEdge`]: https://docs.rs/network_analysis/0.2.8/network_analysis/network/struct.NodeEdge.html
+[`new`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.new
+[`solve`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/trait.NetworkAnalysis.html#tymethod.solve
+[`MeshAnalysis`]: https://docs.rs/network_analysis/0.2.8/network_analysis/mesh_analysis/struct.MeshAnalysis.html
+[`NodalAnalysis`]: https://docs.rs/network_analysis/0.2.8/network_analysis/nodal_analysis/struct.NodalAnalysis.html
+[`CurrentSources`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/type.CurrentSources.html
+[`VoltageSources`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/type.VoltageSources.html
+[`Resistances`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/type.Resistances.html
+[`JacobianData`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/struct.JacobianData.html
+[`Solution`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/struct.Solution.html
+[`SolverConfig`]: https://docs.rs/network_analysis/0.2.8/network_analysis/shared/struct.SolverConfig.html
+[`Type`]: https://docs.rs/network_analysis/0.2.8/network_analysis/network/enum.Type.html
 [graph_terminology.svg]: https://raw.githubusercontent.com/StefanMathis/network_analysis/refs/heads/main/docs/img/graph_terminology.svg
 [example.svg]: https://raw.githubusercontent.com/StefanMathis/network_analysis/refs/heads/main/docs/img/example.svg
 
@@ -26,7 +26,7 @@ modify the components. -->
 
 A solver for nonlinear networks based on the mesh and nodal analysis methods.
 
-The full API documentation is available at <https://docs.rs/network_analysis/0.2.7/network_analysis>.
+The full API documentation is available at <https://docs.rs/network_analysis/0.2.8/network_analysis>.
 
 > **Feedback welcome!**  
 > Found a bug, missing docs, or have a feature request?  
@@ -311,7 +311,7 @@ the topic, it is recommended to consult specialist literature such as \[1\] to
 use advanced features of this library (e.g. custom Jacobians). Additionally,
 \[2\] has an in-depth walkthrough of how to iteratively solve a nonlinear
 networks using mesh analysis, while
-<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html>is the base of the
+<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html> is the base of the
 modified nodal analysis method used in this crate.
 
 The principle behind both mesh and nodal analysis is to formulate a matrix
@@ -344,7 +344,7 @@ This functionality is gated behind the `serde` feature flag.
 
 # Literature
 
-1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
+1. Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
 Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
-2) Mathis, Stefan: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
+2. Mathis, Stefan: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
 PhD thesis, TU Kaiserslautern, Shaker-Verlag, 2019

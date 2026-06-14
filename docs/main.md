@@ -281,7 +281,7 @@ the topic, it is recommended to consult specialist literature such as \[1\] to
 use advanced features of this library (e.g. custom Jacobians). Additionally,
 \[2\] has an in-depth walkthrough of how to iteratively solve a nonlinear
 networks using mesh analysis, while
-<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html>is the base of the
+<https://lpsa.swarthmore.edu/Systems/Electrical/mna/MNA3.html> is the base of the
 modified nodal analysis method used in this crate.
 
 The principle behind both mesh and nodal analysis is to formulate a matrix
@@ -314,7 +314,7 @@ This functionality is gated behind the `serde` feature flag.
 
 # Literature
 
-1) Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
+1. Schmidt, Lorenz-Peter; Schaller, Gerd; Martius, Siegfried: Grundlagen der
 Elektrotechnik 3 - Netzwerke. 1st edition (2006). Pearson, Munich
-2) Mathis, Stefan: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
+2. Mathis, Stefan: Permanentmagneterregte Line-Start-Antriebe in Ferrittechnik,
 PhD thesis, TU Kaiserslautern, Shaker-Verlag, 2019
